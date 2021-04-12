@@ -14,7 +14,7 @@ int main(void) {
         dup2(pfds[1], STDOUT_FILENO);
         close(pfds[1]);
         // Start command
-        execvp("ls", {"ls","/dev", NULL});
+        execlp("ls", "ls", "/dev", NULL);
     }
     // Close read end of previous pipe (not needed in the parent)
     close(prev_pipe);
@@ -35,7 +35,7 @@ int main(void) {
         dup2(pfds[1], STDOUT_FILENO);
         close(pfds[1]);
         // Start command
-        execvp("sort", {"sort", NULL});
+        execlp("sort", "sort", NULL);
     }
     // Close read end of previous pipe (not needed in the parent)
     close(prev_pipe);
@@ -46,5 +46,5 @@ int main(void) {
 
 
     // Start last command
-    execvp("more", {"more", NULL});
+    execlp("more", "more", NULL);
 }
