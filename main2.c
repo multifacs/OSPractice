@@ -17,12 +17,6 @@ int main(void) {
 
     pipe(pfds);
     if (fork() == 0) {
-        // Redirect previous pipe to stdin
-        if (prev_pipe != STDIN_FILENO) {
-            printf("NO1\n");
-            dup2(prev_pipe, STDIN_FILENO);
-            close(prev_pipe);
-        }
         // Redirect stdout to current pipe
         dup2(pfds[1], STDOUT_FILENO);
         close(pfds[1]);
@@ -63,14 +57,6 @@ int main(void) {
     // Save read end of current pipe to use in next iteration
     prev_pipe = pfds[0];
 
-
-
-    // Get stdin from last pipe
-    if (prev_pipe != STDIN_FILENO) {
-        printf("NO3\n");
-        dup2(prev_pipe, STDIN_FILENO);
-        close(prev_pipe);
-    }
 
     // Start last command
     execvp(commands[2][0], commands[2]);
