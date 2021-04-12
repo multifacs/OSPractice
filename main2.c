@@ -22,8 +22,6 @@ int main(void) {
         close(pfds[1]);
         // Start command
         execvp(commands[0][0], commands[0]);
-        perror("execvp failed");
-        exit(1);
     }
     // Close read end of previous pipe (not needed in the parent)
     close(prev_pipe);
@@ -47,8 +45,6 @@ int main(void) {
         close(pfds[1]);
         // Start command
         execvp(commands[1][0], commands[1]);
-        perror("execvp failed");
-        exit(1);
     }
     // Close read end of previous pipe (not needed in the parent)
     close(prev_pipe);
@@ -60,7 +56,4 @@ int main(void) {
 
     // Start last command
     execvp(commands[2][0], commands[2]);
-
-    perror("execvp failed");
-    exit(1);
 }
