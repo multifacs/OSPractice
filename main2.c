@@ -35,11 +35,9 @@ int main(void) {
     pipe(pfds);
     if (fork() == 0) {
         // Redirect previous pipe to stdin
-        if (prev_pipe != STDIN_FILENO) {
-            printf("NO2\n");
-            dup2(prev_pipe, STDIN_FILENO);
-            close(prev_pipe);
-        }
+        dup2(prev_pipe, STDIN_FILENO);
+        close(prev_pipe);
+
         // Redirect stdout to current pipe
         dup2(pfds[1], STDOUT_FILENO);
         close(pfds[1]);
