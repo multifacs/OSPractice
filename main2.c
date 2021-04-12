@@ -44,10 +44,12 @@ int main(void) {
     close(prev_pipe);
     // Close write end of current pipe (not needed in the parent)
     close(pfds[1]);
-    // Save read end of current pipe to use in next iteration
-    prev_pipe = pfds[0];
 
 
     // Start last command
     execlp("more", "more", NULL);
+
+    waitpid(pid1, NULL, 0);
+    waitpid(pid2, NULL, 0);
+    return 0;
 }
