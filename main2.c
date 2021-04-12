@@ -3,17 +3,10 @@
 #include <unistd.h>
 
 int main(void) {
-    char *commands[][4] = {
-        {"ls","/dev", NULL},
-        {"sort", NULL},
-        {"more", NULL},
-    };
-
     size_t i;
     int prev_pipe, pfds[2];
 
     prev_pipe = STDIN_FILENO;
-
 
     pipe(pfds);
     if (fork() == 0) {
@@ -21,7 +14,7 @@ int main(void) {
         dup2(pfds[1], STDOUT_FILENO);
         close(pfds[1]);
         // Start command
-        execvp(commands[0][0], commands[0]);
+        execvp("ls", {"ls","/dev", NULL});
     }
     // Close read end of previous pipe (not needed in the parent)
     close(prev_pipe);
@@ -42,7 +35,7 @@ int main(void) {
         dup2(pfds[1], STDOUT_FILENO);
         close(pfds[1]);
         // Start command
-        execvp(commands[1][0], commands[1]);
+        execvp("sort", {"sort", NULL});
     }
     // Close read end of previous pipe (not needed in the parent)
     close(prev_pipe);
@@ -53,5 +46,5 @@ int main(void) {
 
 
     // Start last command
-    execvp(commands[2][0], commands[2]);
+    execvp("more", {"more", NULL});
 }
