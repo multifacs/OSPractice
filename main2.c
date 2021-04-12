@@ -9,7 +9,9 @@ int main(void) {
     prev_pipe = STDIN_FILENO;
 
     pipe(pfds);
-    if (fork() == 0) {
+    int pid1 = fork();
+
+    if (pid1 == 0) {
         // Redirect stdout to current pipe
         dup2(pfds[1], STDOUT_FILENO);
         close(pfds[1]);
@@ -26,7 +28,8 @@ int main(void) {
 
 
     pipe(pfds);
-    if (fork() == 0) {
+    int pid2 = fork();
+    if (pid2 == 0) {
         // Redirect previous pipe to stdin
         dup2(prev_pipe, STDIN_FILENO);
         close(prev_pipe);
