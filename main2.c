@@ -46,10 +46,14 @@ int main(void) {
     close(pfds[1]);
 
 
-    // Start last command
-    execlp("more", "more", NULL);
+    int pid3 = fork();
+    if (pid3 == 0) {
+        // Start last command
+        execlp("more", "more", NULL);
+    }
 
     waitpid(pid1, NULL, 0);
     waitpid(pid2, NULL, 0);
+    waitpid(pid3, NULL, 0);
     return 0;
 }
