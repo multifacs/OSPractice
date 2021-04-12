@@ -26,8 +26,6 @@ int main(void) {
     prev_pipe = pfds[0];
 
 
-
-    pipe(pfds);
     int pid2 = fork();
     if (pid2 == 0) {
         // Redirect previous pipe to stdin
