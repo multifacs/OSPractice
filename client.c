@@ -8,17 +8,12 @@
 
 int main(int argc, char *argv[])
 {
-    // if (argc != 2) {
-    //     printf("usage - %s [stuff to write]", argv[0]);
-    //     return -1;
-    // }
-
     if (argc != 1) {
         printf("usage - %s //no args", argv[0]);
         return -1;
     }
 
-    printf("Writing...\n");
+    //printf("Writing...\n");
 
     char *block = attach_memory_block(FILENAME, BLOCK_SIZE);
     if (block == NULL) {
@@ -31,13 +26,12 @@ int main(int argc, char *argv[])
 
     int i, j;
     for (i = 0; i < 3; i++) {
-        char msg = 'a' + i;
-        
-        for (j = 0; j < 3; j++)
-            block[1+j] = msg;
+        char msg = 'A' + i;
+        for (j = block[0]; j < block[0] + 3; j++)
+            block[j+1] = msg;
         
         block[0] += 3;
-        sleep(1);
+        sleep(2);
     }
 
     block[0] = -1;
