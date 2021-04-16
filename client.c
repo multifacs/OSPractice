@@ -4,8 +4,6 @@
 
 #include "shared_memory.h"
 
-#define BLOCK_SIZE 4096
-
 int main(int argc, char *argv[])
 {
     if (argc != 1) {
